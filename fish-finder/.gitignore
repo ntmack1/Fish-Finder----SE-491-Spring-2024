@@ -1,0 +1,38 @@
+# Compiled class files
+*.class
+
+# Log file
+*.log
+
+# Package Files
+*.jar
+*.war
+*.ear
+
+# Maven generated directories
+target/
+
+# Dependency directories
+dependency-reduced-pom.xml
+lib/
+
+# IDE specific settings
+.idea/
+*.iml
+.vscode/
+*.code-workspace
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Local configuration file (contains machine specific settings)
+local.properties
+
+# JUnit test reports
+TEST-*.xml
+
+# Maven wrapper files (uncomment if you are not including the Maven wrapper)
+# .mvn/
+# mvnw
+# mvnw.cmd
