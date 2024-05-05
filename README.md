@@ -35,7 +35,7 @@ To run the application backend, you need to specify the main class if it's not a
 
     mvn spring-boot:run
 
-This command will start the application and Spring Boot's embedded server, making your application accessible at `http://localhost:8080`. You can access the React frontend by navigating to this URL in your web browser.
+This command will start the application and Spring Boot's embedded server, making your application accessible at `http://localhost:8080`. To acccess the react frontend please check the README in the frontend directory. 
 
 
 ### Packaging the Project
