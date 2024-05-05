@@ -8,8 +8,10 @@ Here's how you can use Maven to build, test, and run this project.
 Ensure that you have the following installed:
 - Java JDK 20 or higher
 - Maven 3.9.6 or higher
+- Node.js 20.12.2 or higher
+- npm 10.5.0 or higher (usually bundled with Node.js)
 
-You can check your Java version by running `java -version` and your Maven version by running `mvn -version` in your terminal.
+You can check your Java version by running `java -version`, your Maven version by running `mvn -version`, your node version by running `node -v` and your npm version by running `npm -v` in your terminal.
 
 ### Building the Project
 
@@ -27,13 +29,14 @@ To execute all tests in the project, use the following Maven command:
 
 This command runs all tests defined in the project and provides a summary of the test results.
 
-### Running the Application
+### Running the Application Backend
 
-To run the application, you need to specify the main class if it's not already defined in the Maven configuration. Use the following command:
+To run the application backend, you need to specify the main class if it's not already defined in the Maven configuration. Use the following command:
 
-    mvn exec:java -Dexec.mainClass="com.yourpackage.MainClass"
+    mvn spring-boot:run
 
-Replace `com.yourpackage.MainClass` with the fully qualified name of your main class. This command will start the application using Maven.
+This command will start the application and Spring Boot's embedded server, making your application accessible at `http://localhost:8080`. You can access the React frontend by navigating to this URL in your web browser.
+
 
 ### Packaging the Project
 
