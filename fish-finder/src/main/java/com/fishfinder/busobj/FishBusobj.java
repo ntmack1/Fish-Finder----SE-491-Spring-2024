@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class FishBusobj {
     private Integer speciesId;
+    private Integer itisTsn;
     private String group;
     private String family;
     private String genus;
