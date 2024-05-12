@@ -1,0 +1,52 @@
+name: Building App and Testing
+
+on:
+  # Triggers the workflow on push or pull request
+  push:
+  pull_request:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Checks-out the repository so the runner can access it
+      - uses: actions/checkout@v4
+     
+      - name: Set Up JDK Version
+        uses: actions/setup-java@v4
+        with:
+          java-version: 20
+          distribution: oracle
+      
+      - name: Set Up Node.JS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      # Caches the NPM packages to speed up the build
+      
+      - name: Cache Node.js modules
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      
+      - name: Build frontend
+        working-directory: ./fish-finder/frontend
+        run: |
+          npm install
+          npm run build
+      
+      - name: Test frontend
+        working-directory: ./fish-finder/frontend
+        run: npm test
+      
+      - name: Build and test backend
+        working-directory: ./fish-finder
+        run: mvn clean install
