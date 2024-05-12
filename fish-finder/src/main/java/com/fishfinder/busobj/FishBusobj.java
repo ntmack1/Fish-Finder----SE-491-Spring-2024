@@ -7,15 +7,18 @@ import lombok.Setter;
 @Setter
 public class FishBusobj {
     private Integer speciesId;
-    private Integer itisTsn;
-    private String group;
+    private String wikiUrl;
+    private String imageOne;
+    private String imageTwo;
+    private String synonyms;
+    private String domain;
+    private String kingdom;
+    private String phylum;
     private String family;
+    private String fishClass;
+    private String superOrder;
+    private String order;
     private String genus;
     private String species;
-    private String subspecies;
-    private String variety;
-    private String authority;
     private String commonName;
-    private String nativeExotic;
-    private String FMB;
 }
