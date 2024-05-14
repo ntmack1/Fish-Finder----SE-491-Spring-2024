@@ -80,13 +80,14 @@ export const Register = () => {
     }
 
     return (
+        // change the a href tag later to the login url
         <>
             {success ? (
                 <section>
                     <Container>
                         <h1>Welcome To Fish Finder!</h1>
                         <p>
-                            <a href="#">Sign In</a>
+                            <a href="/register">Sign In</a>
                         </p>
                     </Container>
                 </section>
@@ -189,7 +190,7 @@ export const Register = () => {
                     <p>
                         Already registered?<br/>
                         <span className="line">
-                            <a href="#">Sign In</a>
+                            <a href="/register">Sign In</a>
                         </span>
                     </p>
                 </Container>
