@@ -4,11 +4,11 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
-import baseUrl from "../api/baseUrl";
+import axios from 'axios';
 
 const USER_REGEX = /^[a-zA-z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const REGISTER_URL = 'user/register';
+const REGISTER_URL = 'http://localhost:8080/user/register';
 
 export const Register = () => {
     const userRef = useRef();
@@ -61,7 +61,7 @@ export const Register = () => {
             return;
         }
         try {
-            await baseUrl.post(REGISTER_URL, JSON.stringify({user, pwd}),
+            await axios.post(REGISTER_URL, JSON.stringify({user, pwd}),
                 {
                     headers: {'Content-Type': 'application/json'},
                 }
