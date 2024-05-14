@@ -2,7 +2,6 @@ package com.fishfinder.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -11,24 +10,45 @@ import com.fishfinder.domain.User;
 import com.fishfinder.service.ServiceInterface;
 
 @Service
-public class UserService implements ServiceInterface<RegisterBusobj> {
-    private List<User> users = new ArrayList<>();
+public class UserService implements ServiceInterface<User> {
+    private static List<User> users = new ArrayList<>();
+    private static int id = 0;
 
     @Override
-    public String deleteById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+    public Boolean deleteById(Long id) {
+        int userIndex = 0;
+        boolean status = false;
+        for (User user : users) {
+            if (user.getId().intValue() == id.intValue()){
+                userIndex = users.indexOf(user);
+                status = true;
+                break;
+            }
+        }
+        users.remove(userIndex);
+        return status;
     }
 
     @Override
-    public RegisterBusobj save(RegisterBusobj t) {
+    public User save(RegisterBusobj t) {
         User newUser = new User();
-        return t;
+        newUser.setId(id);
+        newUser.setUserName(t.getUser());
+        newUser.setPassword(t.getPwd());
+        id++;
+        users.add(newUser);
+        return newUser;
     }
 
     @Override
-    public Optional<RegisterBusobj> getById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+    public User getById(Long id) {
+        int userIndex = 0;
+        for (User user : users) {
+            if (user.getId().intValue() == id.intValue()){
+                userIndex = users.indexOf(user);
+                break;
+            }
+        }
+        return users.get(userIndex);
     };
 }

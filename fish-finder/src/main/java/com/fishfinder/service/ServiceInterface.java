@@ -1,9 +1,9 @@
 package com.fishfinder.service;
 
-import java.util.Optional;
+import com.fishfinder.busobj.RegisterBusobj;
 
 public interface ServiceInterface<T> {
-    String deleteById(Long id);
-    T save(T t);
-    Optional<T> getById(Long id);
+    Boolean deleteById(Long id);
+    T save(RegisterBusobj t);
+    T getById(Long id);
 }

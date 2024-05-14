@@ -4,13 +4,13 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
-import axios from "./api/axios";
+import axios from "../api/axios";
 
 const USER_REGEX = /^[a-zA-z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const REGISTER_URL = '/register';
+const REGISTER_URL = 'user/register';
 
-const Register = () => {
+export const Register = () => {
     const userRef = useRef();
     const errorRef = useRef();
 
@@ -52,6 +52,7 @@ const Register = () => {
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
+        console.log('I am in submit logic');
         const var1 = USER_REGEX.test(user);
         const var2 = PWD_REGEX.test(pwd);
         
@@ -64,7 +65,6 @@ const Register = () => {
                     JSON.stringify({user, pwd}),
                 {
                     headers: {'Content-Type': 'application/json'},
-                    withCredentials: true
                 }
             );
             setSuccess(true);
@@ -99,7 +99,7 @@ const Register = () => {
                     araia-live="assertive">{errorMsg}</p>
                     <h1>Register</h1>
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group className="mb-3" controlId="registerForm.username">
+                        <Form.Group className="mb-3">
                             <Form.Label htmlFor="username">
                                 Username:
                                 <span className={validName ? "valid" : "hide"}>
@@ -129,7 +129,7 @@ const Register = () => {
                             </p>
                         </Form.Group>
                         
-                        <Form.Group className="mb-3" controlId="registerForm.password">
+                        <Form.Group className="mb-3">
                             <Form.Label htmlFor="password">
                                 Password:
                                 <span className={validPwd ? "valid" : "hide"}>
@@ -158,7 +158,7 @@ const Register = () => {
                             </p>
                         </Form.Group>
 
-                        <Form.Group className="mb-3" controlId="registerForm.passwordmatch">
+                        <Form.Group className="mb-3">
                             <Form.Label htmlFor="confirm_pwd">
                                 Confirm Password:
                                 <span className={validMatch && matchPwd ? "valid" : "hide"}>
@@ -185,7 +185,7 @@ const Register = () => {
                             </p>
                         </Form.Group>
 
-                        <Button disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</Button>
+                        <Button onClick={handleSubmit} disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</Button>
                     </Form>
                     <p>
                         Already registered?<br/>
@@ -199,5 +199,3 @@ const Register = () => {
         </>
     )
 }
-
-export default Register

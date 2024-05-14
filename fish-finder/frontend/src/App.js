@@ -1,13 +1,10 @@
-import logo from './logo.svg';
-import Register from './Register';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import { Paths } from './components/Paths';
 
 function App() {
   return (
-    <main className="App">
-      <Register/>
-    </main>
+    <Paths />  
   );
 }
 
