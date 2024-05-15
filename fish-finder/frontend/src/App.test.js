@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders search button', () => {
+test('renders search input', () => {
   render(<App />);
-  const linkElement = screen.getByText(/Search/i);
-  expect(linkElement).toBeInTheDocument();
+  const inputElement = screen.getByPlaceholderText(/Search/i);
+  expect(inputElement).toBeInTheDocument();
 });
