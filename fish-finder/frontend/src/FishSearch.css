@@ -1,0 +1,43 @@
+.FishSearch {
+    text-align: center;
+    padding: 20px;
+}
+
+.FishSearch.fish-found {
+    text-align: left;
+}
+
+.FishSearch form {
+    margin: 20px auto;
+    max-width: 300px;
+}
+
+.FishSearch input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.FishSearch.fish-found form {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    text-align: right;
+    max-width: none;
+}
+
+.title {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.error {
+    color: red;
+}
+
+.fish-info {
+    margin: 0 auto;
+    max-width: 600px;
+    text-align: left;
+}
