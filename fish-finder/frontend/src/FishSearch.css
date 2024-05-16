@@ -52,3 +52,25 @@
     text-align: left;
     padding-top: 100px; /* Add space at the top to avoid overlapping with the title */
 }
+
+/* ... existing code ... */
+
+.register-button {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 1em;
+    font-weight: bold;
+    color: #1E90FF;
+    border: 2px solid #1E90FF;
+    padding: 10px;
+    border-radius: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    text-decoration: none; /* Remove the underline */
+}
+
+.register-button:hover {
+    background-color: #1E90FF;
+    color: white;
+}
+

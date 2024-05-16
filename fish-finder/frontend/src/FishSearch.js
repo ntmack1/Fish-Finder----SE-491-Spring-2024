@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'; // Import the Link component
 import './FishSearch.css'; // Import the CSS file
 
 function FishSearch() {
@@ -28,6 +29,7 @@ function FishSearch() {
     return (
         <div className={`FishSearch ${fish ? 'fish-found' : ''}`}>
             <h1 className="title">Fish Finder</h1>
+            <Link to="/register" className="register-button">Register</Link> {/* Add this line */}
             <form onSubmit={search}>
                 <input
                     type="text"
