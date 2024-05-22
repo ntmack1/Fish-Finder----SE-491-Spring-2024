@@ -1,46 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'; // Import the Link component
-import './FishSearch.css'; // Import the CSS file
+import { useParams, Link } from 'react-router-dom';
+import './Search.css';
 
-function FishSearch() {
-    const [name, setName] = useState('');
+function Search() {
+    const { name } = useParams();
     const [fish, setFish] = useState(null);
     const [error, setError] = useState(null);
+    const [search, setSearch] = useState(name || ''); // Add a state for the search input
 
-    const search = async (event) => {
-        event.preventDefault(); // Prevent the form from refreshing the page
-        try {
-            const response = await axios.get(`http://localhost:8080/fish/${name}`);
-            if (response.data) {
-                setFish(response.data);
-                setError(null);
-            } else {
+    useEffect(() => {
+        const fetchFish = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/fish/${name}`);
+                if (response.data) {
+                    setFish(response.data);
+                    setError(null);
+                } else {
+                    setFish(null);
+                    setError('No fish found');
+                }
+            } catch (error) {
+                console.error('Failed to fetch fish:', error);
                 setFish(null);
-                setError('No fish found');
+                setError('Failed to fetch fish');
             }
-        } catch (error) {
-            console.error('Failed to fetch fish:', error);
-            setFish(null);
-            setError('Failed to fetch fish');
-        }
-    };
+        };
+
+        fetchFish();
+    }, [name]);
 
     return (
-        <div className={`FishSearch ${fish ? 'fish-found' : ''}`}>
+        <div className={`Search ${fish ? 'fish-found' : ''}`}>
             <h1 className="title">Fish Finder</h1>
-            <Link to="/register" className="register-button">Register</Link> {/* Add this line */}
-            <form onSubmit={search}>
+            <Link to="/register" className="register-button">Register</Link>
+            <form action={`/search/${search}`}> {/* Modify this line */}
                 <input
                     type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    value={search} // Modify this line
+                    onChange={e => setSearch(e.target.value)} // Add this line
                     placeholder="Search"
                 />
             </form>
-
             {error && <p className="error">{error}</p>}
-
             {fish && (
                 <div className="fish-info">
                     <h2>{fish.name}</h2>
@@ -64,4 +66,4 @@ function FishSearch() {
     );
 }
 
-export default FishSearch;
+export default Search;
