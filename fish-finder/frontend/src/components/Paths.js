@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Register } from "./Register";
 import { Splash } from "./Splash";
-import HomePage from './home_page/HomePage'; // Import the HomePage component
 import Search from './search/Search'; // Import the Search component
 
 export const Paths = () => {
