@@ -1,0 +1,59 @@
+.HomePage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Align items vertically in the center */
+    height: 100vh; /* Take up the full height of the viewport */
+    padding: 20px;
+}
+
+.HomePage form {
+    margin: 20px auto;
+    max-width: 300px;
+}
+
+.HomePage input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.title {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    font-size: 2em;
+    font-weight: bold;
+    color: #1E90FF;
+    border: 2px solid #1E90FF;
+    padding: 10px;
+    border-radius: 10px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.register-button {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 1em;
+    font-weight: bold;
+    color: #1E90FF;
+    border: 2px solid #1E90FF;
+    padding: 10px;
+    border-radius: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    text-decoration: none; /* Remove the underline */
+}
+
+.register-button:hover {
+    background-color: #1E90FF;
+    color: white;
+}
+
+.Search form {
+    position: absolute;
+    top: 80px; /* Move the form down to avoid overlapping with the title */
+    right: 100px; /* Move the form to the left */
+    text-align: right;
+    max-width: 200px; /* Make the form smaller */
+}
