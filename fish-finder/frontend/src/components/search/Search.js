@@ -7,7 +7,7 @@ function Search() {
     const { name } = useParams();
     const [fish, setFish] = useState(null);
     const [error, setError] = useState(null);
-    const [search, setSearch] = useState(name || ''); // Add a state for the search input
+    const [search, setSearch] = useState(name || '');
 
     useEffect(() => {
         const fetchFish = async () => {
@@ -34,30 +34,32 @@ function Search() {
         <div className={`Search ${fish ? 'fish-found' : ''}`}>
             <h1 className="title">Fish Finder</h1>
             <Link to="/register" className="register-button">Register</Link>
-            <form action={`/search/${search}`}> {/* Modify this line */}
+            <form action={`/search/${search}`}>
                 <input
                     type="text"
-                    value={search} // Modify this line
-                    onChange={e => setSearch(e.target.value)} // Add this line
+                    value={search}
+                    onChange={e => setSearch(e.target.value)}
                     placeholder="Search"
                 />
             </form>
             {error && <p className="error">{error}</p>}
             {fish && (
                 <div className="fish-info">
-                    <h2>{fish.name}</h2>
+                    <h2>{fish.name} {fish.meta && fish.meta.binomial_name && <i>({fish.meta.binomial_name.split(/(?=[A-Z][^A-Z])/g).join(" ")})</i>}</h2>
                     {fish.img_src_set && Object.keys(fish.img_src_set).length > 0 &&
                         <img src={Object.values(fish.img_src_set)[0]} alt={fish.name} />}
+                    {fish.meta && (
+                        <div>
+                            {fish.meta.genera && <p><strong>Genera:</strong> {fish.meta.genera}</p>}
+                            {fish.meta.synonyms && <p><strong>Synonyms:</strong> {fish.meta.synonyms}</p>}
+                            {fish.meta.conservation_status && <p><strong>Conservation Status:</strong> {fish.meta.conservation_status}</p>}
+                        </div>
+                    )}
                     {fish.meta && fish.meta.scientific_classification && (
                         <div>
-                            {fish.meta.scientific_classification.domain && <p><strong>Domain:</strong> {fish.meta.scientific_classification.domain}</p>}
-                            {fish.meta.scientific_classification.kingdom && <p><strong>Kingdom:</strong> {fish.meta.scientific_classification.kingdom}</p>}
-                            {fish.meta.scientific_classification.phylum && <p><strong>Phylum:</strong> {fish.meta.scientific_classification.phylum}</p>}
-                            {fish.meta.scientific_classification.classs && <p><strong>Class:</strong> {fish.meta.scientific_classification.classs}</p>}
-                            {fish.meta.scientific_classification.order && <p><strong>Order:</strong> {fish.meta.scientific_classification.order}</p>}
-                            {fish.meta.scientific_classification.family && <p><strong>Family:</strong> {fish.meta.scientific_classification.family}</p>}
-                            {fish.meta.scientific_classification.genus && <p><strong>Genus:</strong> {fish.meta.scientific_classification.genus}</p>}
-                            {fish.meta.scientific_classification.species && <p><strong>Species:</strong> {fish.meta.scientific_classification.species}</p>}
+                            {['domain', 'kingdom', 'subkingdom', 'phylum', 'subphylum', 'class', 'subclass', 'infraclass', 'superorder', 'order', 'suborder', 'infraorder', 'parvorder', 'superfamily', 'family', 'subfamily', 'tribe', 'subtribe', 'genus', 'subgenus', 'species', 'subspecies'].map(key => (
+                                fish.meta.scientific_classification[key] && <p key={key}><strong>{key.charAt(0).toUpperCase() + key.slice(1)}:</strong> {fish.meta.scientific_classification[key]}</p>
+                            ))}
                         </div>
                     )}
                 </div>

@@ -53,6 +53,18 @@ public class Fish {
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 class Metadata {
+	@JsonProperty("binomial_name")
+	private String binomialName;
+
+	@JsonProperty("genera")
+	private String genera;
+
+	@JsonProperty("synonyms")
+	private String synonyms;
+
+	@JsonProperty("conservation_status")
+	private String conservationStatus;
+
 	@JsonProperty("scientific_classification")
     private Scientific_classification scientific_classification;
 
@@ -106,10 +118,10 @@ class Scientific_classification {
 		this.subfamily = subfamily;
 	}
 	public String getSuperfamily() {
-		return subfamily;
+		return superfamily;
 	}
-	public void setSuperfamily(String subfamily) {
-		this.subfamily = subfamily;
+	public void setSuperfamily(String superfamily) {
+		this.superfamily = superfamily;
 	}
 	@JsonProperty("class")
     private String classs;
