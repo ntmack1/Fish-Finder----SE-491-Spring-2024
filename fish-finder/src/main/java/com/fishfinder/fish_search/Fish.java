@@ -1,4 +1,4 @@
-package com.fetch.fishapi;
+package com.fishfinder.fish_search;
 
 import java.io.IOException;
 import java.util.Collections;
