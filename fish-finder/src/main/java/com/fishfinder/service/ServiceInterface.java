@@ -1,9 +1,11 @@
 package com.fishfinder.service;
 
+import java.util.UUID;
+
 import com.fishfinder.busobj.RegisterBusobj;
 
 public interface ServiceInterface<T> {
-    Boolean deleteById(Long id);
+    Boolean deleteById(UUID id);
     T save(RegisterBusobj t);
-    T getById(Long id);
+    T getById(UUID id);
 }
