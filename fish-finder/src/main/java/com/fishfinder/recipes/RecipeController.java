@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @RestController
 public class RecipeController {
 
-    private static final String API_KEY = "46b02b2a0f6146ad937c5a05d9e0d136";
+    private static final String API_KEY = "d250a24af3624aaba54596fecc7f4ac0";
     private static final String SPOONACULAR_API_URL = "https://api.spoonacular.com/recipes/findByIngredients";
 
     @GetMapping("/recipes/{name}")
