@@ -6,6 +6,7 @@ import './Search.css';
 function Search() {
     const { name } = useParams();
     const [fish, setFish] = useState(null);
+    const [recipes, setRecipes] = useState([]);
     const [error, setError] = useState(null);
     const [search, setSearch] = useState(name || '');
 
@@ -27,7 +28,23 @@ function Search() {
             }
         };
 
+        const fetchRecipes = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/recipes/${name}`);
+                console.log('Recipes:', response.data); // Add this line
+                if (response.data) {
+                    setRecipes(response.data);
+                } else {
+                    setRecipes([]);
+                }
+            } catch (error) {
+                console.error('Failed to fetch recipes:', error);
+                setRecipes([]);
+            }
+        };
+
         fetchFish();
+        fetchRecipes();
     }, [name]);
 
     return (
@@ -63,6 +80,20 @@ function Search() {
                         </div>
                     )}
                 </div>
+            )}
+            {recipes.length > 0 ? (
+                <div className="recipe-list">
+                    <h2>Recipes</h2>
+                    <ul>
+                        {recipes.map((recipe, index) => (
+                            <li key={index}>
+                                <Link to={`/recipe/${recipe}`}>{recipe}</Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            ) : (
+                <p>No recipes available for this fish.</p>
             )}
         </div>
     );
