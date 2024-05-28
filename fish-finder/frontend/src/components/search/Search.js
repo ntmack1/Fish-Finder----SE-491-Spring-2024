@@ -10,7 +10,6 @@ function Search() {
     const [fish, setFish] = useState(null);
     const [recipes, setRecipes] = useState([]);
     const [error, setError] = useState(null);
-    const [search, setSearch] = useState(name || '');
 
     useEffect(() => {
         const fetchFish = async () => {
