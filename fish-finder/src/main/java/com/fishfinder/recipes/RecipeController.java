@@ -8,6 +8,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -17,16 +18,17 @@ public class RecipeController {
     private static final String SPOONACULAR_API_URL = "https://api.spoonacular.com/recipes/findByIngredients";
 
     @GetMapping("/recipes/{name}")
-    public List<String> getRecipes(@PathVariable String name) {
+    public Map<String, Integer> getRecipes(@PathVariable String name) {
         RestTemplate restTemplate = new RestTemplate();
         String url = SPOONACULAR_API_URL + "?ingredients=" + name + "&number=10&apiKey=" + API_KEY;
         ResponseEntity<Recipe[]> response = restTemplate.getForEntity(url, Recipe[].class);
         Recipe[] recipes = response.getBody();
-        return Arrays.stream(recipes).map(Recipe::getTitle).collect(Collectors.toList());
+        return Arrays.stream(recipes).collect(Collectors.toMap(Recipe::getTitle, Recipe::getId));
     }
 
     static class Recipe {
         private String title;
+        private int id;
 
         public String getTitle() {
             return title;
@@ -35,5 +37,14 @@ public class RecipeController {
         public void setTitle(String title) {
             this.title = title;
         }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
     }
+
 }

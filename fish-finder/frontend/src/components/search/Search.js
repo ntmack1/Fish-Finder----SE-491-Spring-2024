@@ -31,7 +31,7 @@ function Search() {
         const fetchRecipes = async () => {
             try {
                 const response = await axios.get(`http://localhost:8080/recipes/${name}`);
-                console.log('Recipes:', response.data); // Add this line
+                console.log('Recipes:', response.data);
                 if (response.data) {
                     setRecipes(response.data);
                 } else {
@@ -81,13 +81,13 @@ function Search() {
                     )}
                 </div>
             )}
-            {recipes.length > 0 ? (
+            {Object.keys(recipes).length > 0 ? (
                 <div className="recipe-list">
                     <h2>Recipes</h2>
                     <ul>
-                        {recipes.map((recipe, index) => (
-                            <li key={index}>
-                                <Link to={`/recipe/${recipe}`}>{recipe}</Link>
+                        {Object.entries(recipes).map(([recipe, id]) => (
+                            <li key={id}>
+                                <Link to={`/recipe/${id}`}>{recipe}</Link>
                             </li>
                         ))}
                     </ul>
@@ -95,6 +95,7 @@ function Search() {
             ) : (
                 <p>No recipes available for this fish.</p>
             )}
+
         </div>
     );
 }
