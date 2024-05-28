@@ -1,26 +1,17 @@
 // src/components/home_page/HomePage.js
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import Header from '../header/Header';
+import SearchBar from '../search_bar/SearchBar'; // Import the SearchBar component
 import './HomePage.css';
 
 function HomePage() {
-    const [name, setName] = useState('');
-
     return (
         <div className="HomePage">
-            <h1 className="title">Fish Finder</h1>
-            <Link to="/register" className="register-button">Register</Link>
-            <Link to="/map" className="map-button">Map</Link> {/* Add this line */}
-            <form action={`/search/${name}`}>
-                <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Search"
-                />
-            </form>
+            <Header />
+            <SearchBar /> {/* Use the SearchBar component */}
         </div>
     );
 }
 
 export default HomePage;
+

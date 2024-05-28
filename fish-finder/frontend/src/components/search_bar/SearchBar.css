@@ -1,0 +1,8 @@
+/* src/components/search_bar/SearchBar.css */
+.search-bar input {
+    background-image: url('../../../public/fishing-hook-icon.png');
+    background-repeat: no-repeat;
+    background-position: right 10px center; /* Adjust the horizontal position (10px from the right) and vertical position (center) */
+    background-size: 25px; /* Increase the size of the image */
+    padding-right: 35px; /* Adjust this value based on the size of your image */
+}

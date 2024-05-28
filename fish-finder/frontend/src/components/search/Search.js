@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import './Search.css';
+import Header from "../header/Header";
+import SearchBar from "../search_bar/SearchBar";
 
 function Search() {
     const { name } = useParams();
@@ -49,16 +51,8 @@ function Search() {
 
     return (
         <div className={`Search ${fish ? 'fish-found' : ''}`}>
-            <h1 className="title">Fish Finder</h1>
-            <Link to="/register" className="register-button">Register</Link>
-            <form action={`/search/${search}`}>
-                <input
-                    type="text"
-                    value={search}
-                    onChange={e => setSearch(e.target.value)}
-                    placeholder="Search"
-                />
-            </form>
+            <Header /> {/* Add the Header component */}
+            <SearchBar />
             {error && <p className="error">{error}</p>}
             {fish && (
                 <div className="fish-info">

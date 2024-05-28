@@ -1,0 +1,38 @@
+.Header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.title {
+    font-size: 2em;
+    font-weight: bold;
+    color: #1E90FF;
+    border: 2px solid #1E90FF;
+    padding: 10px;
+    border-radius: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    text-decoration: none; /* Remove the underline */
+}
+
+.register-button, .map-button, .profile-button {
+    font-size: 1em;
+    font-weight: bold;
+    color: #1E90FF;
+    border: 2px solid #1E90FF;
+    padding: 10px;
+    border-radius: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    text-decoration: none; /* Remove the underline */
+    margin-left: 10px; /* Add space between the buttons */
+}
+
+.register-button:hover, .map-button:hover, .profile-button:hover {
+    background-color: #1E90FF;
+    color: white;
+}
+
+.buttons {
+    display: flex;
+}
