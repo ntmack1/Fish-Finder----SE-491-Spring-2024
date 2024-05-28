@@ -7,7 +7,7 @@ function SearchBar() {
 
     return (
         <form action={`/search/${search}`} className="search-bar">
-            <label for="search-input">
+            <label htmlFor="search-input">
                 <input
                     id="search-input"
                     type="text"

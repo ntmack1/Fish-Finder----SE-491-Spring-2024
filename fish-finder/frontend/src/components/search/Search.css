@@ -5,7 +5,6 @@
 .fish-info {
     max-width: 600px;
     text-align: left;
-    padding-top: 0px; /* Reduced space at the top to bring the fish info closer to the header */
 }
 
 .recipe-list {
