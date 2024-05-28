@@ -31,10 +31,8 @@
     font-family: 'Courier New', Courier, monospace;
 }
 
-.register-button {
+.register-button, .map-button {
     position: absolute;
-    right: 20px;
-    top: 20px;
     font-size: 1em;
     font-weight: bold;
     color: #1E90FF;
@@ -45,7 +43,17 @@
     text-decoration: none; /* Remove the underline */
 }
 
-.register-button:hover {
+.register-button {
+    right: 20px;
+    top: 20px;
+}
+
+.map-button {
+    right: 20px;
+    top: 80px; /* Position it below the register button */
+}
+
+.register-button:hover, .map-button:hover {
     background-color: #1E90FF;
     color: white;
 }
