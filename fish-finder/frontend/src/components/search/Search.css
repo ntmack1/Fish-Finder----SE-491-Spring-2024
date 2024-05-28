@@ -24,3 +24,17 @@
     text-align: left;
     padding-top: 100px; /* Add space at the top to avoid overlapping with the title */
 }
+
+.recipe-list {
+    text-align: left;
+}
+
+.recipe-list ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.recipe-list li {
+    cursor: pointer;
+}
+
