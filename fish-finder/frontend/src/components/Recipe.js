@@ -10,9 +10,8 @@ function Recipe() {
         const fetchRecipe = async () => {
             try {
                 const response = await axios.get(`http://localhost:8080/recipe/${id}`);
-                if (response.data) {
-                    setRecipe(response.data);
-                }
+                console.log(response.data); // Log the response data
+                setRecipe(response.data);
             } catch (error) {
                 console.error('Failed to fetch recipe:', error);
             }
@@ -26,26 +25,33 @@ function Recipe() {
             <div className="Recipe">
                 <h1>{recipe.title}</h1>
                 <img src={recipe.image} alt={recipe.title} />
-                <p><strong>Preparation Time:</strong> {recipe.readyInMinutes} minutes</p>
-                <h2>Ingredients</h2>
-                <ul>
-                    {recipe.extendedIngredients.map((ingredient, index) => (
-                        <li key={index}>{ingredient.amount} {ingredient.unit} {ingredient.name}</li>
-                    ))}
-                </ul>
-                <h2>Instructions</h2>
-                <p>{recipe.instructions}</p>
-                <h2>Nutrition</h2>
-                <ul>
-                    {recipe.nutrition.nutrients.map((nutrient, index) => (
-                        <li key={index}>{nutrient.amount} {nutrient.unit} {nutrient.title}</li>
-                    ))}
-                </ul>
+                <p>Ready in {recipe.readyInMinutes} minutes</p>
+                {recipe.extendedIngredients && recipe.extendedIngredients.length > 0 && (
+                    <div>
+                        <h2>Ingredients</h2>
+                        <ul>
+                            {recipe.extendedIngredients.map((ingredient, index) => (
+                                <li key={index}>{ingredient.original}</li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+                {recipe.analyzedInstructions && recipe.analyzedInstructions.length > 0 && recipe.analyzedInstructions[0].steps && (
+                    <div>
+                        <h2>Instructions</h2>
+                        <ol>
+                            {recipe.analyzedInstructions[0].steps.map((step, index) => (
+                                <li key={index}>{step.step}</li>
+                            ))}
+                        </ol>
+                    </div>
+                )}
             </div>
         ) : (
-            <p>Loading...</p>
+            <p>Loading recipe...</p>
         )
     );
 }
 
 export default Recipe;
+

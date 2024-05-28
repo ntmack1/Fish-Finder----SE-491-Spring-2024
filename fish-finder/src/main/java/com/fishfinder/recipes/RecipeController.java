@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -26,25 +27,11 @@ public class RecipeController {
         return Arrays.stream(recipes).collect(Collectors.toMap(Recipe::getTitle, Recipe::getId));
     }
 
-    static class Recipe {
-        private String title;
-        private int id;
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
+    @GetMapping("/recipe/{id}")
+    public Recipe getRecipe(@PathVariable int id) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "https://api.spoonacular.com/recipes/" + id + "/information?includeNutrition=false&apiKey=" + API_KEY;
+        ResponseEntity<Recipe> response = restTemplate.getForEntity(url, Recipe.class);
+        return response.getBody();
     }
-
 }
