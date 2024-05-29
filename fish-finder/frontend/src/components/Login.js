@@ -33,8 +33,6 @@ const Login = () => {
             }
             );
             const accessToken = response?.data.accessToken;
-            console.log(accessToken);
-            console.log('succcc')
             setAuth({user, pwd, accessToken});
             setUser('');
             setPwd('')
