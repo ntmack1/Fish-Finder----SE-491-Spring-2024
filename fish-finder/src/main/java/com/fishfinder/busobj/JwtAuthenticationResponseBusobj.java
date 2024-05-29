@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterBusobj {
-    private String user;
-    private String pwd;
+public class JwtAuthenticationResponseBusobj {
+    private String token;
 }
