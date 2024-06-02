@@ -1,22 +1,22 @@
 package com.fishfinder.resource;
 
+
+import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fishfinder.busobj.JwtAuthenticationResponseBusobj;
+import com.fishfinder.busobj.LoginBusobj;
 import com.fishfinder.busobj.RegisterBusobj;
-import com.fishfinder.domain.User;
-import com.fishfinder.service.impl.UserService;
+import com.fishfinder.service.AuthenticationService;
 
 @RestController
 @RequestMapping("/user")
@@ -24,28 +24,41 @@ import com.fishfinder.service.impl.UserService;
 public class UserResource {
     
     @Autowired
-    private UserService registerService;
+    private AuthenticationService authenticationService;
 
     @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> register(@RequestBody RegisterBusobj user){
+    public ResponseEntity<String> register(@RequestBody RegisterBusobj user) throws JSONException{
         JSONObject jsonObject = new JSONObject();
+        JwtAuthenticationResponseBusobj jwt = new JwtAuthenticationResponseBusobj();
         try {
-            User savedUser = registerService.save(user);
-            jsonObject.put("message", savedUser.getUserName() + " has been saved");
+            jwt = authenticationService.signUp(user);
+            jsonObject.put("message", user.getUser() + " has been saved");
+            jsonObject.put("accessToken", jwt.getToken());
             return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
         } catch (Exception e) {
-            // TODO: handle exception
+            jsonObject.put("message", user.getUser() + " is in use");
+            return new ResponseEntity<>(jsonObject.toString(), HttpStatus.CONFLICT);
         }
-        return null;
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<User> getUser(@PathVariable Long id){
-        return new ResponseEntity<>(registerService.getById(id), HttpStatus.OK);
-    }
+     @PostMapping(value = "/signIn", produces = MediaType.APPLICATION_JSON_VALUE)
+     public ResponseEntity<String> logInUser(@RequestBody LoginBusobj user) throws JSONException{
+        JSONObject jsonObject = new JSONObject();
+        JwtAuthenticationResponseBusobj jwt = new JwtAuthenticationResponseBusobj();
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<Boolean> deleteUser(@PathVariable Long id){
-        return new ResponseEntity<>(registerService.deleteById(id), HttpStatus.OK);
+        if(user.getUser().isEmpty() || user.getPwd().isEmpty()){
+            jsonObject.put("message", "Username or Password is empty");
+            return new ResponseEntity<>(jsonObject.toString(), HttpStatus.BAD_REQUEST);
+        }
+
+        try {
+           jwt = authenticationService.signIn(user);
+           jsonObject.put("message", user.getUser() + " has signed in");
+           jsonObject.put("accessToken", jwt.getToken());
+           return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            jsonObject.put("message", e.getMessage());
+            return new ResponseEntity<>(jsonObject.toString(), HttpStatus.NOT_FOUND);
+        }
     }
 }

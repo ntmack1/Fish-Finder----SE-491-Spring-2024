@@ -52,7 +52,6 @@ export const Register = () => {
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
-        console.log('I am in submit logic');
         const var1 = USER_REGEX.test(user);
         const var2 = PWD_REGEX.test(pwd);
         
@@ -80,14 +79,13 @@ export const Register = () => {
     }
 
     return (
-        // change the a href tag later to the login url
         <>
             {success ? (
                 <section>
                     <Container>
                         <h1>Welcome To Fish Finder!</h1>
                         <p>
-                            <a href="/register">Sign In</a>
+                            <a href="/login">Sign In</a>
                         </p>
                     </Container>
                 </section>
@@ -190,7 +188,7 @@ export const Register = () => {
                     <p>
                         Already registered?<br/>
                         <span className="line">
-                            <a href="/register">Sign In</a>
+                            <a href="/login">Sign In</a>
                         </span>
                     </p>
                 </Container>

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterBusobj {
+public class LoginBusobj {
     private String user;
     private String pwd;
 }
