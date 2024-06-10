@@ -26,7 +26,7 @@ function UsePageViews() {
 
 function App() {
     // Initialize react-ga4 with your Google Analytics Measurement ID
-    ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_ID); // create a .env file in the root directory and add REACT_APP_GOOGLE_ANALYTICS_ID=YOUR_MEASUREMENT_ID
+    ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_ID); // create a .env file in the root directory and add REACT_APP_GOOGLE_ANALYTICS_ID='YOUR_MEASUREMENT_ID'
 
     return (
         <Router>
