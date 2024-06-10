@@ -60,7 +60,7 @@ function Search() {
         try {
             await axios.post(`http://localhost:8080/api/checklist/saveFish`, {
                 userUuid: auth.userId,
-                fishName: name
+                fishName: fish.name
             });
             alert('Fish saved successfully!');
         } catch (error) {

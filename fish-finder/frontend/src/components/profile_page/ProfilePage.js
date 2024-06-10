@@ -59,7 +59,9 @@ const ProfilePage = () => {
                                 <tbody>
                                 {savedFish.map(fish => (
                                     <tr key={fish.id}>
-                                        <td>{fish.fishName}</td>
+                                        <td>
+                                            <Link to={`/search/${fish.fishName}`}>{fish.fishName}</Link>
+                                        </td>
                                     </tr>
                                 ))}
                                 </tbody>
