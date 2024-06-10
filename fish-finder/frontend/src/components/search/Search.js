@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import './Search.css';
 import Header from "../header/Header";
 import SearchBar from "../search_bar/SearchBar";
+import AuthContext from '../../context/AuthProvider';
 
 function Search() {
     const { name } = useParams();
     const [fish, setFish] = useState(null);
     const [recipes, setRecipes] = useState([]);
     const [error, setError] = useState(null);
+    const { auth } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchFish = async () => {
@@ -48,6 +50,22 @@ function Search() {
         fetchRecipes();
     }, [name]);
 
+    const saveFish = async () => {
+        console.log('Auth Object:', auth); // Log the entire auth object
+        console.log('User ID:', auth.userId); // Log the specific userId
+
+        try {
+            await axios.post(`http://localhost:8080/api/checklist/saveFish`, {
+                userUuid: auth.userId,
+                fishName: name
+            });
+            alert('Fish saved successfully!');
+        } catch (error) {
+            console.error('Failed to save fish:', error);
+            alert('Failed to save fish');
+        }
+    };
+
     return (
         <div className={`Search ${fish ? 'fish-found' : ''}`}>
             <Header /> {/* Add the Header component */}
@@ -72,6 +90,7 @@ function Search() {
                             ))}
                         </div>
                     )}
+                    <button onClick={saveFish}>Save Fish</button>
                 </div>
             )}
             {Object.keys(recipes).length > 0 ? (
@@ -88,7 +107,6 @@ function Search() {
             ) : (
                 <p>No recipes available for this fish.</p>
             )}
-
         </div>
     );
 }
