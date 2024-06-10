@@ -5,6 +5,7 @@ import './Search.css';
 import Header from "../header/Header";
 import SearchBar from "../search_bar/SearchBar";
 import AuthContext from '../../context/AuthProvider';
+import './Search.css';
 
 function Search() {
     const { name } = useParams();
@@ -51,8 +52,10 @@ function Search() {
     }, [name]);
 
     const saveFish = async () => {
-        console.log('Auth Object:', auth); // Log the entire auth object
-        console.log('User ID:', auth.userId); // Log the specific userId
+        if (!auth.userId) {
+            alert('Please log in to save fish');
+            return;
+        }
 
         try {
             await axios.post(`http://localhost:8080/api/checklist/saveFish`, {
@@ -61,8 +64,12 @@ function Search() {
             });
             alert('Fish saved successfully!');
         } catch (error) {
-            console.error('Failed to save fish:', error);
-            alert('Failed to save fish');
+            if (error.response && error.response.data === 'Fish already saved') {
+                alert('Fish already saved');
+            } else {
+                console.error('Failed to save fish:', error);
+                alert('Failed to save fish');
+            }
         }
     };
 
@@ -73,6 +80,7 @@ function Search() {
             {error && <p className="error">{error}</p>}
             {fish && (
                 <div className="fish-info">
+                    {/* Fish information display */}
                     <h2>{fish.name} {fish.meta && fish.meta.binomial_name && <i>({fish.meta.binomial_name.split(/(?=[A-Z][^A-Z])/g).join(" ")})</i>}</h2>
                     {fish.img_src_set && Object.keys(fish.img_src_set).length > 0 &&
                         <img src={Object.values(fish.img_src_set)[0]} alt={fish.name} />}
@@ -90,7 +98,7 @@ function Search() {
                             ))}
                         </div>
                     )}
-                    <button onClick={saveFish}>Save Fish</button>
+                    <button className="save-fish-button" onClick={saveFish}>Save Fish</button> {/* Apply CSS class to the button */}
                 </div>
             )}
             {Object.keys(recipes).length > 0 ? (

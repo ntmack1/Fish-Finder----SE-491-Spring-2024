@@ -4,6 +4,7 @@ import { jwtDecode } from 'jwt-decode'; // Correct named import
 import AuthContext from '../../context/AuthProvider';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import './ProfilePage.css'; // Import CSS for styling
 
 const ProfilePage = () => {
     const { auth, logout } = useContext(AuthContext);
@@ -39,27 +40,31 @@ const ProfilePage = () => {
     }
 
     return (
-        <div>
+        <div className="ProfilePage">
             <Header />
             {auth.accessToken ? (
                 <>
                     <h1>{name}</h1>
-                    <button onClick={handleLogout}>Logout</button>
+                    <div className="logout-button-container">
+                        <button className="logout-button" onClick={handleLogout}>Logout</button>
+                    </div>
                     {savedFish.length > 0 ? (
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>Fish Name</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {savedFish.map(fish => (
-                                <tr key={fish.id}>
-                                    <td>{fish.fishName}</td>
+                        <div className="saved-fish-container">
+                            <table className="saved-fish-table">
+                                <thead>
+                                <tr>
+                                    <th>Fish Name</th>
                                 </tr>
-                            ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                {savedFish.map(fish => (
+                                    <tr key={fish.id}>
+                                        <td>{fish.fishName}</td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
+                        </div>
                     ) : (
                         <p>No saved fish</p>
                     )}
@@ -72,4 +77,5 @@ const ProfilePage = () => {
 }
 
 export default ProfilePage;
+
 
