@@ -2,6 +2,7 @@
 import React from 'react';
 import InteractiveMap from './InteractiveMap';
 import Header from "../header/Header";
+import '../home_page/HomePage.css'
 
 const MapPage = () => {
     const handleSave = (lat, lng) => {
@@ -10,10 +11,12 @@ const MapPage = () => {
     };
 
     return (
-        <div>
-            <Header/>
-            <h1>Map Page</h1>
-            <InteractiveMap onSave={handleSave} />
+        <div className='hero'>
+            <div>
+                <Header/>
+                <h1>Map Page</h1>
+                <InteractiveMap onSave={handleSave} />
+            </div>
         </div>
     );
 };
