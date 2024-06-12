@@ -1,6 +1,5 @@
 // src/components/header/Header.js
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './Header.css';
 import logo from '../../media/logo.png'
 
