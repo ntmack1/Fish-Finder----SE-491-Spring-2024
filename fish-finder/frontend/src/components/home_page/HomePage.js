@@ -16,7 +16,7 @@ function HomePage() {
                         <SearchBar className='anime' /> {/* Use the SearchBar component */}
                     </div>
                     <div className='col'>
-                        <img src={pic1} className='feature-img anime' alt='Feature Image'/>
+                        <img src={pic1} className='feature-img anime' alt='Feature Fish'/>
 
                     </div>
             </div>
