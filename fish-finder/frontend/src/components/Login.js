@@ -1,4 +1,4 @@
-import {useRef, useState, useEffect, useContext} from 'react';
+import { useRef, useState, useEffect, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
@@ -6,8 +6,9 @@ import AuthContext from '../context/AuthProvider';
 import axios from "../api/axios";
 
 const LOGIN_URL = '/user/signIn';
+
 const Login = () => {
-    const {setAuth} = useContext(AuthContext);
+    const { setAuth } = useContext(AuthContext);
     const userRef = useRef();
     const errorRef = useRef();
 
@@ -18,44 +19,48 @@ const Login = () => {
 
     useEffect(() => {
         userRef.current.focus();
-    }, [])
+    }, []);
 
     useEffect(() => {
-       setErrorMsg('');
-    }, [user, pwd])
+        setErrorMsg('');
+    }, [user, pwd]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(LOGIN_URL, JSON.stringify({user, pwd}), 
-            {
-                headers: {'Content-Type': 'application/json'},
-            }
-            );
+            const response = await axios.post(LOGIN_URL, JSON.stringify({ user, pwd }), {
+                headers: { 'Content-Type': 'application/json' },
+            });
+            console.log("Full response:", response.data); // Log the entire response
             const accessToken = response?.data.accessToken;
-            setAuth({user, pwd, accessToken});
+            const userId = response?.data.userId;
+            console.log("Access Token:", accessToken);
+            console.log("User ID:", userId);
+            setAuth({ user, pwd, accessToken, userId });
             setUser('');
-            setPwd('')
+            setPwd('');
             setSuccess(true);
         } catch (error) {
-            if(!error.response){
+            console.error("Error response:", error.response); // Log any error response
+            if (!error.response) {
                 setErrorMsg('No Server Response');
-            }else if(error.response?.status === 400){
+            } else if (error.response?.status === 400) {
                 setErrorMsg('Missing Username or Password');
-            }else if(error.response?.status === 401){
+            } else if (error.response?.status === 401) {
                 setErrorMsg('Unauthorized');
-            }else if(error.response?.status === 404){
+            } else if (error.response?.status === 404) {
                 setErrorMsg('Invalid Username or Password');
-            }else{
+            } else {
                 setErrorMsg('Login Failed');
             }
             errorRef.current.focus();
         }
-    }
+    };
 
-    return(
+
+    return (
         <>
-         {success ? (
+            {success ? (
                 <section>
                     <Container>
                         <h1>You are logged in!</h1>
@@ -65,25 +70,25 @@ const Login = () => {
                     </Container>
                 </section>
             ) : (
-            <section>
-                <Container>
-                    <p ref={errorRef} className={errorMsg ? "errorMsg" : "offscreen"} 
-                            araia-live="assertive">{errorMsg}</p>
-                    <h1>Sign In</h1>
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group className="mb-3">
-                        <Form.Label htmlFor="username">Username:</Form.Label>
-                        <Form.Control 
-                                        type="text"
-                                        id="username"
-                                        ref={userRef}
-                                        autoComplete="off"
-                                        onChange={(input) => setUser(input.target.value)}
-                                        value={user}
-                                        required
-                                    />
-                        </Form.Group>
-                        <Form.Group className="mb-3">
+                <section>
+                    <Container>
+                        <p ref={errorRef} className={errorMsg ? "errorMsg" : "offscreen"}
+                           aria-live="assertive">{errorMsg}</p>
+                        <h1>Sign In</h1>
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group className="mb-3">
+                                <Form.Label htmlFor="username">Username:</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    id="username"
+                                    ref={userRef}
+                                    autoComplete="off"
+                                    onChange={(input) => setUser(input.target.value)}
+                                    value={user}
+                                    required
+                                />
+                            </Form.Group>
+                            <Form.Group className="mb-3">
                                 <Form.Label htmlFor="password">Password:</Form.Label>
                                 <Form.Control
                                     type="password"
@@ -92,20 +97,20 @@ const Login = () => {
                                     value={pwd}
                                     required
                                 />
-                        </Form.Group>
-                        <Button onClick={handleSubmit}>Sign In</Button>
-                    </Form>
+                            </Form.Group>
+                            <Button type="submit">Sign In</Button>
+                        </Form>
                         <p>
-                            Need an Account?<br/>
+                            Need an Account?<br />
                             <span className="line">
                                 <a href="/register">Sign Up</a>
                             </span>
                         </p>
-                </Container>
-            </section>
+                    </Container>
+                </section>
             )}
         </>
-    )
+    );
 }
 
-export default Login
+export default Login;

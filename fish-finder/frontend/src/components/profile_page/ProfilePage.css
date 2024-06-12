@@ -1,0 +1,64 @@
+.ProfilePage {
+    padding: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+}
+
+.logout-button {
+    font-size: 1em;
+    font-weight: bold;
+    color: #1E90FF;
+    background-color: white;
+    border: 2px solid #1E90FF;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.logout-button:hover {
+    background-color: #1E90FF;
+    color: white;
+}
+
+.saved-fish-container {
+    margin-top: 20px;
+}
+
+.saved-fish-table {
+    width: 60%;
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.saved-fish-table th, .saved-fish-table td {
+    border: 1px solid #1E90FF;
+    padding: 10px;
+    text-align: left;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px; /* Adjust as needed */
+}
+
+.saved-fish-table th {
+    background-color: #1E90FF;
+    color: white;
+}
+
+.saved-fish-table th:first-child {
+    border-top-left-radius: 10px;
+}
+
+.saved-fish-table th:last-child {
+    border-top-right-radius: 10px;
+}
+
+.saved-fish-table tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+.saved-fish-table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}

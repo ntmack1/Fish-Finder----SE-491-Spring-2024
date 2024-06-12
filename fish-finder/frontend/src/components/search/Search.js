@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import './Search.css';
 import Header from "../header/Header";
 import SearchBar from "../search_bar/SearchBar";
+import AuthContext from '../../context/AuthProvider';
+import './Search.css';
 
 function Search() {
     const { name } = useParams();
     const [fish, setFish] = useState(null);
     const [recipes, setRecipes] = useState([]);
     const [error, setError] = useState(null);
+    const { auth } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchFish = async () => {
@@ -48,6 +51,28 @@ function Search() {
         fetchRecipes();
     }, [name]);
 
+    const saveFish = async () => {
+        if (!auth.userId) {
+            alert('Please log in to save fish');
+            return;
+        }
+
+        try {
+            await axios.post(`http://localhost:8080/api/checklist/saveFish`, {
+                userUuid: auth.userId,
+                fishName: fish.name
+            });
+            alert('Fish saved successfully!');
+        } catch (error) {
+            if (error.response && error.response.data === 'Fish already saved') {
+                alert('Fish already saved');
+            } else {
+                console.error('Failed to save fish:', error);
+                alert('Failed to save fish');
+            }
+        }
+    };
+
     return (
         <div className={`Search ${fish ? 'fish-found' : ''}`}>
             <Header /> {/* Add the Header component */}
@@ -55,6 +80,7 @@ function Search() {
             {error && <p className="error">{error}</p>}
             {fish && (
                 <div className="fish-info">
+                    {/* Fish information display */}
                     <h2>{fish.name} {fish.meta && fish.meta.binomial_name && <i>({fish.meta.binomial_name.split(/(?=[A-Z][^A-Z])/g).join(" ")})</i>}</h2>
                     {fish.img_src_set && Object.keys(fish.img_src_set).length > 0 &&
                         <img src={Object.values(fish.img_src_set)[0]} alt={fish.name} />}
@@ -72,6 +98,7 @@ function Search() {
                             ))}
                         </div>
                     )}
+                    <button className="save-fish-button" onClick={saveFish}>Save Fish</button> {/* Apply CSS class to the button */}
                 </div>
             )}
             {Object.keys(recipes).length > 0 ? (
@@ -88,7 +115,6 @@ function Search() {
             ) : (
                 <p>No recipes available for this fish.</p>
             )}
-
         </div>
     );
 }

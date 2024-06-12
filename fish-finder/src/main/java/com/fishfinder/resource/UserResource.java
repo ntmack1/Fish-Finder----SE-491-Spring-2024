@@ -41,21 +41,22 @@ public class UserResource {
         }
     }
 
-     @PostMapping(value = "/signIn", produces = MediaType.APPLICATION_JSON_VALUE)
-     public ResponseEntity<String> logInUser(@RequestBody LoginBusobj user) throws JSONException{
+    @PostMapping(value = "/signIn", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> logInUser(@RequestBody LoginBusobj user) throws JSONException {
         JSONObject jsonObject = new JSONObject();
         JwtAuthenticationResponseBusobj jwt = new JwtAuthenticationResponseBusobj();
 
-        if(user.getUser().isEmpty() || user.getPwd().isEmpty()){
+        if (user.getUser().isEmpty() || user.getPwd().isEmpty()) {
             jsonObject.put("message", "Username or Password is empty");
             return new ResponseEntity<>(jsonObject.toString(), HttpStatus.BAD_REQUEST);
         }
 
         try {
-           jwt = authenticationService.signIn(user);
-           jsonObject.put("message", user.getUser() + " has signed in");
-           jsonObject.put("accessToken", jwt.getToken());
-           return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
+            jwt = authenticationService.signIn(user);
+            jsonObject.put("message", user.getUser() + " has signed in");
+            jsonObject.put("accessToken", jwt.getToken());
+            jsonObject.put("userId", jwt.getUserId().toString()); // Include userId in the response
+            return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             jsonObject.put("message", e.getMessage());
             return new ResponseEntity<>(jsonObject.toString(), HttpStatus.NOT_FOUND);

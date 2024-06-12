@@ -40,6 +40,7 @@ public class AuthenticationService {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUser(), request.getPwd()));
         var user = userRepo.findByUserName(request.getUser()).orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
         var jwt = jwtService.generateToken(user);
-        return JwtAuthenticationResponseBusobj.builder().token(jwt).build();
+        var userId = user.getId(); // get the user's ID
+        return JwtAuthenticationResponseBusobj.builder().token(jwt).userId(userId).build(); // include the userId in the response
     }
 }
