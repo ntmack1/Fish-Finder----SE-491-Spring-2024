@@ -10,14 +10,21 @@ const MapPage = () => {
         // Send coordinates to Google Analytics as an event
         try {
             ReactGA.event({
-                name: 'saved_location',
+                category: 'Map',
+                action: 'Saved Location',
+                label: `Coordinates: (${lat}, ${lng})`,
+                value: 1, // Example value, can be omitted or set as needed
+                nonInteraction: false, // Set to true if the event shouldn't affect bounce rate
+
+                // GA4 specific parameters
+                name: 'saved_location', // GA4 event name
                 params: {
                     latitude: lat,
                     longitude: lng,
                     coordinates: `(${lat}, ${lng})`
                 }
             });
-            console.log('GA event sent: ', { name: 'saved_location', params: { latitude: lat, longitude: lng, coordinates: `(${lat}, ${lng})` } });
+            console.log('GA event sent: ', { category: 'Map', action: 'Saved Location', label: `Coordinates: (${lat}, ${lng})`, params: { latitude: lat, longitude: lng, coordinates: `(${lat}, ${lng})` } });
         } catch (error) {
             console.error('Error sending GA event: ', error);
         }
