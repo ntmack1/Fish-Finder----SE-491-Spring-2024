@@ -7,7 +7,7 @@ function Header() {
     return (
         <div className="Header">
             <nav>
-            <a href='/'><img src={logo} className = "logo"/></a>
+            <a href='/'><img src={logo} className = "logo" alt='The Logo'/></a>
                 <ul>
                     <li><a href='/register'>Register</a></li>
                     <li><a href='login'>Sign In</a></li>
