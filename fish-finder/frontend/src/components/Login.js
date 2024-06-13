@@ -4,6 +4,9 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import AuthContext from '../context/AuthProvider';
 import axios from "../api/axios";
+import Header from './header/Header';
+import './home_page/HomePage.css'
+
 
 const LOGIN_URL = '/user/signIn';
 
@@ -61,53 +64,58 @@ const Login = () => {
     return (
         <>
             {success ? (
-                <section>
-                    <Container>
-                        <h1>You are logged in!</h1>
-                        <p>
-                            <a href="/">Go to Home</a>
-                        </p>
-                    </Container>
-                </section>
+                <div className='hero'>
+                    <section>
+                        <Container>
+                            <h1>You are logged in!</h1>
+                            <p>
+                                <a href="/">Go to Home</a>
+                            </p>
+                        </Container>
+                    </section>
+                </div>
             ) : (
-                <section>
-                    <Container>
-                        <p ref={errorRef} className={errorMsg ? "errorMsg" : "offscreen"}
-                           aria-live="assertive">{errorMsg}</p>
-                        <h1>Sign In</h1>
-                        <Form onSubmit={handleSubmit}>
-                            <Form.Group className="mb-3">
-                                <Form.Label htmlFor="username">Username:</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    id="username"
-                                    ref={userRef}
-                                    autoComplete="off"
-                                    onChange={(input) => setUser(input.target.value)}
-                                    value={user}
-                                    required
-                                />
-                            </Form.Group>
-                            <Form.Group className="mb-3">
-                                <Form.Label htmlFor="password">Password:</Form.Label>
-                                <Form.Control
-                                    type="password"
-                                    id="password"
-                                    onChange={(input) => setPwd(input.target.value)}
-                                    value={pwd}
-                                    required
-                                />
-                            </Form.Group>
-                            <Button type="submit">Sign In</Button>
-                        </Form>
-                        <p>
-                            Need an Account?<br />
-                            <span className="line">
-                                <a href="/register">Sign Up</a>
-                            </span>
-                        </p>
-                    </Container>
-                </section>
+                <div className='hero'>
+                    <Header />
+                    <section>
+                        <Container>
+                            <p ref={errorRef} className={errorMsg ? "errorMsg" : "offscreen"}
+                            aria-live="assertive">{errorMsg}</p>
+                            <h1>Sign In</h1>
+                            <Form onSubmit={handleSubmit}>
+                                <Form.Group className="mb-3">
+                                    <Form.Label htmlFor="username">Username:</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        id="username"
+                                        ref={userRef}
+                                        autoComplete="off"
+                                        onChange={(input) => setUser(input.target.value)}
+                                        value={user}
+                                        required
+                                    />
+                                </Form.Group>
+                                <Form.Group className="mb-3">
+                                    <Form.Label htmlFor="password">Password:</Form.Label>
+                                    <Form.Control
+                                        type="password"
+                                        id="password"
+                                        onChange={(input) => setPwd(input.target.value)}
+                                        value={pwd}
+                                        required
+                                    />
+                                </Form.Group>
+                                <Button type="submit">Sign In</Button>
+                            </Form>
+                            <p>
+                                Need an Account?<br />
+                                <span className="line">
+                                    <a href="/register">Sign Up</a>
+                                </span>
+                            </p>
+                        </Container>
+                    </section>
+                </div>
             )}
         </>
     );

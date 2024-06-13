@@ -5,6 +5,7 @@ import AuthContext from '../../context/AuthProvider';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './ProfilePage.css'; // Import CSS for styling
+import '../home_page/HomePage.css'
 
 const ProfilePage = () => {
     const { auth, logout } = useContext(AuthContext);
@@ -40,40 +41,42 @@ const ProfilePage = () => {
     }
 
     return (
-        <div className="ProfilePage">
-            <Header />
-            {auth.accessToken ? (
-                <>
-                    <h1>{name}</h1>
-                    <div className="logout-button-container">
-                        <button className="logout-button" onClick={handleLogout}>Logout</button>
-                    </div>
-                    {savedFish.length > 0 ? (
-                        <div className="saved-fish-container">
-                            <table className="saved-fish-table">
-                                <thead>
-                                <tr>
-                                    <th>Fish Name</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {savedFish.map(fish => (
-                                    <tr key={fish.id}>
-                                        <td>
-                                            <Link to={`/search/${fish.fishName}`}>{fish.fishName}</Link>
-                                        </td>
-                                    </tr>
-                                ))}
-                                </tbody>
-                            </table>
+        <div className='hero'>
+            <div className="ProfilePage">
+                <Header />
+                {auth.accessToken ? (
+                    <>
+                        <h1>{name}</h1>
+                        <div className="logout-button-container">
+                            <button className="logout-button" onClick={handleLogout}>Logout</button>
                         </div>
-                    ) : (
-                        <p>No saved fish</p>
-                    )}
-                </>
-            ) : (
-                <h1><Link to="/login">Please log in</Link></h1>
-            )}
+                        {savedFish.length > 0 ? (
+                            <div className="saved-fish-container">
+                                <table className="saved-fish-table">
+                                    <thead>
+                                    <tr>
+                                        <th>Fish Name</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {savedFish.map(fish => (
+                                        <tr key={fish.id}>
+                                            <td>
+                                                <Link to={`/search/${fish.fishName}`}>{fish.fishName}</Link>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        ) : (
+                            <p>No saved fish</p>
+                        )}
+                    </>
+                ) : (
+                    <h1><Link to="/login">Please log in</Link></h1>
+                )}
+            </div>
         </div>
     );
 }
